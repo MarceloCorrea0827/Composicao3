@@ -12,9 +12,10 @@ namespace ExercComposição3.Entities
 
         public Order() { }
 
-        public Order(DateTime moment)
+        public Order(DateTime moment, OrderStatus status)
         {
             Moment = moment;
+            Status = status;
         }
 
         public void AddItem(OrderItem item)
