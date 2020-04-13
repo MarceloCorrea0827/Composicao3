@@ -15,7 +15,7 @@ namespace ExercComposição3
 
             Console.WriteLine("Enter Client Data: ");
             Console.Write("Name: ");
-            client.Nome = Console.ReadLine();
+            client.Name = Console.ReadLine();
             Console.Write("E-mail: ");
             client.Email = Console.ReadLine();
             Console.Write("Birth Date (DD/MM/YYYY): ");
@@ -26,8 +26,9 @@ namespace ExercComposição3
             Console.Write("Status: ");
             OrderStatus status = Enum.Parse<OrderStatus>(Console.ReadLine());
 
-            // Instanciando Order
+            // Instanciando Order e associando o Client
             Order order = new Order() { Moment = DateTime.Now, Status = status };
+            order.AddCliente(client);
 
             // Criação e Entrada dos ítens da Ordem
             Console.Write("How many items to this order?");
@@ -53,6 +54,13 @@ namespace ExercComposição3
                 // Adicionando a OrdemItem à Order
                 order.AddItem(orderItem);
             }
+
+            // Mostrando os resultados na Tela
+            Console.WriteLine("ORDER SUMMARY:");
+            Console.WriteLine("Order Moment: " + order.Moment.ToString("dd/MM/yyyy HH:mm:ss"));
+            Console.WriteLine("Order Status: " + order.Status);
+            Console.WriteLine("Client: " + order.Cli.Name + " (" + order.Cli.BirthDate.ToString("dd/MM/yyyy") + ")" + " - " + order.Cli.Email);
+            Console.WriteLine(order);
         }
     }
 }

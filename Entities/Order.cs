@@ -1,6 +1,8 @@
 ﻿using ExercComposição3.Entities.Enum;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
 
 namespace ExercComposição3.Entities
 {
@@ -9,6 +11,7 @@ namespace ExercComposição3.Entities
         public DateTime Moment { get; set; }
         public OrderStatus Status { get; set; }
         public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public Client Cli { get; set; }
 
         public Order() { }
 
@@ -16,6 +19,11 @@ namespace ExercComposição3.Entities
         {
             Moment = moment;
             Status = status;
+        }
+
+        public void AddCliente(Client client)
+        {
+            Cli = client;
         }
 
         public void AddItem(OrderItem item)
@@ -36,6 +44,22 @@ namespace ExercComposição3.Entities
                 sum += item.SubTotal();
             }
             return sum;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Order Items:");
+            foreach(OrderItem orderItem in Items)
+            {
+                sb.AppendLine(orderItem.Prod.Name + ", " + 
+                          "$" + orderItem.Prod.Price.ToString("F2", CultureInfo.InvariantCulture) + ", " + 
+                          "Quantity: " +  orderItem.Quantity + ", " + 
+                          "Subtotal: $" + orderItem.SubTotal().ToString("F2", CultureInfo.InvariantCulture)
+                );
+            }
+            sb.AppendLine("Total Price: $" + Total().ToString("F2", CultureInfo.InvariantCulture));
+            return sb.ToString();
         }
     }
 }
